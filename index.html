@@ -734,9 +734,40 @@ body{
 }
 .sos-sheet .phone-card{
   cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+  display:block;
+  position:relative;
 }
 .sos-sheet .phone-card:hover{
   border-color:var(--alert);
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(192,57,43,.12);
+}
+.phone-card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+.phone-card-top .call-icon{
+  width:30px;height:30px;border-radius:9px;
+  display:grid;place-items:center;
+  background:rgba(192,57,43,.09);
+  color:var(--alert);
+}
+.phone-card-top .call-icon svg{width:16px;height:16px}
+.phone-card-top .call-label{
+  font-size:9px;font-weight:900;letter-spacing:.08em;
+  color:var(--alert);opacity:.9;
+}
+.sos-sheet .phone-card:active{
+  transform:scale(.98);
+}
+.sos-sheet .hint::after{
+  content:' • Ketuk nomor untuk membuka aplikasi telepon';
+  font-weight:600;
+  color:var(--alert);
 }
 
 /* Accessibility / reduced motion */
@@ -1503,7 +1534,18 @@ const sosBtn = document.getElementById('sosBtn');
 const sosOverlay = document.getElementById('sosOverlay');
 const sosGrid = document.getElementById('sosGrid');
 const sosClose = document.getElementById('sosClose');
-sosGrid.innerHTML = PHONES.map(p=>`<div class="phone-card"><div class="num">${p.n}</div><div class="lbl">${p.l}</div></div>`).join('');
+function phoneHref(number){
+  // Gunakan angka pertama untuk nomor yang memiliki beberapa pilihan (contoh 118 / 119).
+  const first = String(number).split('/')[0].trim();
+  const digits = first.replace(/[^0-9+]/g,'');
+  return `tel:${digits}`;
+}
+
+sosGrid.innerHTML = PHONES.map(p=>`<a class="phone-card" href="${phoneHref(p.n)}" aria-label="Hubungi ${p.l} di ${p.n}" title="Ketuk untuk membuka aplikasi telepon">
+  <div class="phone-card-top"><span class="call-icon">${ICONS.phone}</span><span class="call-label">PANGGIL</span></div>
+  <div class="num">${p.n}</div>
+  <div class="lbl">${p.l}</div>
+</a>`).join('');
 sosBtn.addEventListener('click', ()=>sosOverlay.classList.add('open'));
 sosClose.addEventListener('click', ()=>sosOverlay.classList.remove('open'));
 sosOverlay.addEventListener('click', (e)=>{ if(e.target===sosOverlay) sosOverlay.classList.remove('open'); });
