@@ -781,6 +781,37 @@ body{
   .sos-btn{right:14px;bottom:14px}
 }
 
+/* Corporate copyright footer */
+.bcm-footer{
+  margin:26px auto 0;
+  padding:22px 24px 28px;
+  max-width:1200px;
+  text-align:center;
+  color:#667085;
+  font-size:12px;
+  line-height:1.6;
+  border-top:1px solid rgba(31,41,55,.10);
+}
+.bcm-footer .footer-brand{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:#24313a;
+}
+.bcm-footer .footer-dot{
+  width:7px; height:7px; border-radius:50%;
+  background:#f2b233;
+  box-shadow:0 0 0 4px rgba(242,178,51,.12);
+}
+.bcm-footer .footer-copy{margin:7px 0 0}
+.bcm-footer .footer-note{margin:2px 0 0;font-size:11px;color:#8a939b}
+@media(max-width:480px){
+  .bcm-footer{padding:18px 16px 24px;font-size:11px}
+}
+
 </style>
 </head>
 <body>
@@ -1533,5 +1564,12 @@ startHeroRotation();
 buildTabs();
 buildPanels();
 </script>
+
+<footer class="bcm-footer" aria-label="Informasi hak cipta">
+  <div class="footer-brand"><span class="footer-dot"></span> Risk Management Group</div>
+  <div class="footer-copy">© <span id="copyrightYear"></span> Risk Management Group — BRI Finance. All rights reserved.</div>
+  <div class="footer-note">Buku Saku Business Continuity Management (BCM)</div>
+</footer>
+
 </body>
 </html>
